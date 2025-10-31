@@ -1498,7 +1498,7 @@ Status CameraService::filterGetInfoErrorCode(status_t err) {
 }
 
 std::string CameraService::getCurrPackageName() {
-    return sCurrPackageName;
+     return sCurrPackageName;
 }
 
 Status CameraService::makeClient(
@@ -2526,6 +2526,8 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const std::str
         // Acquire mServiceLock and prevent other clients from connecting
         std::unique_ptr<AutoConditionLock> lock =
                 AutoConditionLock::waitAndAcquire(mServiceLockWrapper, DEFAULT_CONNECT_TIMEOUT_NS);
+                
+        sCurrPackageName = clientPackageName;
 
         if (lock == nullptr) {
             ALOGE("CameraService::connect (PID %d) rejected (too many other clients connecting).",
